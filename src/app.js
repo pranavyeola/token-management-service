@@ -9,8 +9,6 @@ const ACTIVE_TOKEN_TTL = 60; // 60 seconds
 const AVAILABLE_TOKEN_TTL = 300 // 5 minutes
 
 
-const PORT = process.env.PORT || 3000;
-
 
 
 app.use(express.json());
@@ -134,6 +132,6 @@ subscriber.on('pmessage', async (pattern, channel, message) => {
   });
   
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(config.port,() => {
+  console.log(`Server running on port ${config.port}`);
 });
