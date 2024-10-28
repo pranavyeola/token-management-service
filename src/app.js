@@ -9,7 +9,8 @@ const ACTIVE_TOKEN_TTL = 60; // 60 seconds
 const AVAILABLE_TOKEN_TTL = 300 // 5 minutes
 
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
 
 
 app.use(express.json());
