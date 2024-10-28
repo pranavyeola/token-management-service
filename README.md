@@ -43,11 +43,18 @@ Create a config.json file in the root directory to specify configurations such a
 {
   "databaseUrl": "redis://localhost:6379",
   "tokenPoolSize": 10,
+  "port": 3000
 }
 ```
-### 5.Start the Service
+### 5. .env Setup for local Use, In case you want to run on different port
+If you update the port in config.json, do update in .env as well to run client.js
 ```bash
-PORT=<portn_no> npm start
+BASE_URL=http://localhost:3000
+```
+
+### 6.Start the Service
+```bash
+npm start
 ```
 # API Endpoints
 
