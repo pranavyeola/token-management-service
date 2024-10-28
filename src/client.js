@@ -1,7 +1,8 @@
 const Redis = require('ioredis');
 const axios = require('axios');
 const redisClient = new Redis();
-const API_URL = 'http://localhost:3000'; // Change this to your server's URL
+const config = require('./config.json');
+const API_URL = `http://localhost:${config.port}`; // Change this to server's URL
 
 async function showCurrentKeys() {
   console.log('Current Redis Keys:');
