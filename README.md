@@ -123,7 +123,7 @@ A sample script client.js demonstrates the API operations. Run it to observe tok
 // Run example script
 node app/client.js
 ```
-## Watch Testing Video 
+## Watch Testing Video & Testing Screenshots
 - https://drive.google.com/file/d/1tCefYQeukQZmQb1_wotyjWBxDFzwmSoc/view?usp=sharing
 
 ## Architecture Diagram
