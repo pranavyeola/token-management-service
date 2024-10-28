@@ -1,8 +1,9 @@
 const Redis = require('ioredis');
 const axios = require('axios');
+require("dotenv").config();
 const redisClient = new Redis();
 const config = require('./config.json');
-const API_URL = `http://localhost:${config.port}`; // Change this to server's URL
+const API_URL = process.env.BASE_URL || 'http://localhost:3000'; 
 
 async function showCurrentKeys() {
   console.log('Current Redis Keys:');
