@@ -1,0 +1,6 @@
+{
+    "databaseUrl": "redis://localhost:6379",
+    "tokenPoolSize": 10,
+    "port": 3000
+}
+   
