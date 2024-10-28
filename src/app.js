@@ -69,8 +69,15 @@ app.post('/keep-alive', async (req, res) => {
 // Unblock a token (re-add to available_tokens and remove from token_owners)
 app.post('/unblock-token', async (req, res) => {
   const token = req.body.token;
+   const owner = await client.hget('token_owners', token);
+
+   // Check if the token is assigned to any client
+   if (!owner) {
+     return res.status(403).json({ message: 'Token not assigned to any client' });
+   }
   await client.hdel('token_owners', token);
   await client.sadd('available_tokens', token);
+  await client.set(`token:${token}`, 'available', 'EX', AVAILABLE_TOKEN_TTL); // Set token with a 5-minute expiration
   res.status(200).json({ message: 'Token unblocked' });
 });
 
@@ -79,16 +86,17 @@ app.delete('/delete-token', async (req, res) => {
     const token = req.body.token;
   
     try {
-      await client.hdel('token_owners', token);
+      const isDeleted = await client.hdel('token_owners', token);
   
       const isRemovedFromAvailable = await client.srem('available_tokens', token);
   
       await client.del(`token:${token}`);
-  
-      if (isRemovedFromAvailable) {
-        return res.status(200).json({ message: 'Token deleted from available tokens and owners.' });
+     
+
+      if (isRemovedFromAvailable || isDeleted) {
+        return res.status(200).json({ message: 'Token deleted successfully!' });
       } else {
-        return res.status(200).json({ message: 'Token deleted from owners but was not in available tokens.' });
+        return res.status(404).json({ message: 'Token not found' });
       }
     } catch (err) {
       console.error(err);
